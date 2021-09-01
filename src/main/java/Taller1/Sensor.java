@@ -9,17 +9,12 @@ public class Sensor {
     public static ArrayList<ArrayList<Double>> listas = new ArrayList<>();
 
     public static void main(String[] args) {
-        System.out.println();
-        System.out.println();
-        System.out.println(contarmayor5(llenarAreglo()));
-        agregarDias(listas);
-        System.out.println(listas);
-        llenarDias(listas);
-        System.out.println(listas.get(6));
-        alerta(listas.get(6));
-        show(listas.get(6));
-        System.out.println(mayorElemento(listas.get(6)));
-        showMenu();
+        int x;
+        do{
+            showMenu();
+            System.out.println("Desea realizar otra acción (No (0) / Si (1))");
+            x=validar(1);
+        }while (x!=0);
     }
     public static void mayorSemanal(ArrayList<ArrayList<Double>> listas){
         Double mayor= (double) 0;
@@ -33,6 +28,13 @@ public class Sensor {
         for (Double e: lista) {
             truncar(e);
         }
+    }
+    public boolean noEmptyList(ArrayList<ArrayList<Double>> listas){
+        if (listas.isEmpty()){
+            agregarDias(listas);
+            return true;
+        }
+        return false;
     }
 
     private static void llenarDias(ArrayList<ArrayList<Double>> listas) {
@@ -54,22 +56,54 @@ public class Sensor {
         System.out.println("3)SMS por mayores a 7 => (en desarrollo de momento imprime la cantidad de veces que se encontraron resultados mayores a 7)");
         System.out.println("4)Mayor día de semana");
         System.out.println("5)Mayor semana");
+        System.out.println("6)Mostrar dia");
         System.out.println("0)SALIR ");
         getOption();
     }
+    public static void showMenu2(){
+        System.out.println("INGRESE EL DIA A BUSCAR");
+        System.out.println("1) LUNES");
+        System.out.println("2) MARTES");
+        System.out.println("3) MIERCOLES");
+        System.out.println("4) JUEVES");
+        System.out.println("5) VIERNES");
+        System.out.println("6) SABADO");
+        System.out.println("7) DOMINGO");
+    }
 
     private static void getOption() {
-        int a =validar(5);
-        switch (a){
-            case 0 -> System.out.println("chau");
-            case 1 -> agregarDias(listas);
-//            case 2 -> showArrays();
-//            case 3 -> System.out.println(collect(num));
-            case 4 -> getOption2();
-            case 5 -> mayorSemanal(listas);
+        try{
+            int a =validar(6);
+            switch (a){
+                case 0 -> System.out.println("chau");
+                case 1 -> agregarDias(listas);
+                case 2 -> System.out.println("Movimientos mayores a 5: "+contarMayor5semanal(listas));
+                case 3 -> alertaSemanal(listas);
+                case 4 -> getOption2();
+                case 5 -> mayorSemanal(listas);
+                case 6 -> mostrarDia(listas);
+            }
+        }catch(IndexOutOfBoundsException e){
+            System.out.println("Listas aún sin datos, creando nuevos");
+            agregarDias(listas);
+            System.out.println("Exito");
         }
     }
+
+    private static void mostrarDia(ArrayList<ArrayList<Double>> listas) {
+        showMenu2();
+        int a= validar(7);
+        if(a==0) {
+            System.out.println(listas.get(a));
+        }
+        else if(a>0){
+            System.out.println(listas.get(a-1));
+        }
+    }
+
+
     private static void getOption2() {
+        showMenu2();
         int a =validar(7);
         switch (a){
             case 0 -> System.out.println("chau");
@@ -80,8 +114,6 @@ public class Sensor {
             case 5 -> System.out.println("El mayor dato de el dia viernes es: "+truncar2(mayorElemento(listas.get(4))));
             case 6 -> System.out.println("El mayor dato de el dia sábado es: "+truncar2(mayorElemento(listas.get(5))));
             case 7 -> System.out.println("El mayor dato de el dia domingo es: "+truncar2(mayorElemento(listas.get(6))));
-//            case 2 -> showArrays();
-//            case 3 -> System.out.println(collect(num));
         }
     }
 
@@ -92,6 +124,7 @@ public class Sensor {
     }
 
 
+
     public static void alerta(ArrayList<Double> list){
         for (Double anDouble:list) {
             if(anDouble>7){
@@ -99,11 +132,23 @@ public class Sensor {
             }
         }
     }
+    public static void alertaSemanal(ArrayList<ArrayList<Double>> listas){
+        for (ArrayList<Double> anDoubleList:listas) {
+            alerta(anDoubleList);
+        }
+    }
+    public static int contarMayor5semanal(ArrayList<ArrayList<Double>> listas){
+        int totalSemanal=0;
+        for (ArrayList<Double> anDoubleList:listas) {
+            totalSemanal+=contarmayor5(anDoubleList);
+        }
+        return totalSemanal;
+    }
 
     public static int contarmayor5(ArrayList<Double> list){
         int a = 0;
         for (Double anDouble:list) {
-            System.out.println(anDouble+" hola");
+            System.out.println(anDouble);
             if(anDouble>5){
                 a++;
             }
