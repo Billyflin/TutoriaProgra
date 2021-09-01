@@ -17,6 +17,9 @@ public class Sensor {
         }while (x!=0);
     }
     public static void mayorSemanal(ArrayList<ArrayList<Double>> listas){
+        if (listas.isEmpty()){
+            llenarDias(listas);
+        }
         Double mayor= (double) 0;
         for (ArrayList<Double> list:listas) {
             mayor=mayorElemento(list);
@@ -25,6 +28,9 @@ public class Sensor {
     }
 
     public static void show(ArrayList<Double> lista){
+        if (listas.isEmpty()){
+            llenarDias(listas);
+        }
         for (Double e: lista) {
             truncar(e);
         }
@@ -38,12 +44,18 @@ public class Sensor {
     }
 
     private static void llenarDias(ArrayList<ArrayList<Double>> listas) {
+        if (listas.isEmpty()){
+            llenarDias(listas);
+        }
         for (ArrayList<Double> anList:listas) {
             anList = llenarAreglo();
         }
     }
 
     public static void agregarDias(ArrayList<ArrayList<Double>> listas){
+        if (listas.isEmpty()){
+            llenarDias(listas);
+        }
         for (int i = 0; i < 7; i++) {
             listas.add(llenarAreglo());
         }
@@ -126,6 +138,9 @@ public class Sensor {
 
 
     public static void alerta(ArrayList<Double> list){
+        if (list.isEmpty()){
+            llenarDias(listas);
+        }
         for (Double anDouble:list) {
             if(anDouble>7){
             System.out.println("Alerta!!! se debe evacuar zona costera!");
@@ -133,11 +148,17 @@ public class Sensor {
         }
     }
     public static void alertaSemanal(ArrayList<ArrayList<Double>> listas){
+        if (listas.isEmpty()){
+            llenarDias(listas);
+        }
         for (ArrayList<Double> anDoubleList:listas) {
             alerta(anDoubleList);
         }
     }
     public static int contarMayor5semanal(ArrayList<ArrayList<Double>> listas){
+        if (listas.isEmpty()){
+            llenarDias(listas);
+        }
         int totalSemanal=0;
         for (ArrayList<Double> anDoubleList:listas) {
             totalSemanal+=contarmayor5(anDoubleList);
@@ -146,6 +167,9 @@ public class Sensor {
     }
 
     public static int contarmayor5(ArrayList<Double> list){
+        if (list.isEmpty()){
+            llenarDias(listas);
+        }
         int a = 0;
         for (Double anDouble:list) {
             System.out.println(anDouble);
