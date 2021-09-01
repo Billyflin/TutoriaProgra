@@ -17,6 +17,7 @@ public class Sensor {
         }while (x!=0);
     }
     public static void mayorSemanal(ArrayList<ArrayList<Double>> listas){
+        noEmptyList(listas);
         Double mayor= (double) 0;
         for (ArrayList<Double> list:listas) {
             mayor=mayorElemento(list);
@@ -25,11 +26,12 @@ public class Sensor {
     }
 
     public static void show(ArrayList<Double> lista){
+        noEmptyList(listas);
         for (Double e: lista) {
             truncar(e);
         }
     }
-    public boolean noEmptyList(ArrayList<ArrayList<Double>> listas){
+    public static boolean noEmptyList(ArrayList<ArrayList<Double>> listas){
         if (listas.isEmpty()){
             agregarDias(listas);
             return true;
@@ -91,6 +93,7 @@ public class Sensor {
     }
 
     private static void mostrarDia(ArrayList<ArrayList<Double>> listas) {
+        noEmptyList(listas);
         showMenu2();
         int a= validar(7);
         if(a==0) {
@@ -126,6 +129,7 @@ public class Sensor {
 
 
     public static void alerta(ArrayList<Double> list){
+        noEmptyList(listas);
         for (Double anDouble:list) {
             if(anDouble>7){
             System.out.println("Alerta!!! se debe evacuar zona costera!");
@@ -133,11 +137,13 @@ public class Sensor {
         }
     }
     public static void alertaSemanal(ArrayList<ArrayList<Double>> listas){
+        noEmptyList(listas);
         for (ArrayList<Double> anDoubleList:listas) {
             alerta(anDoubleList);
         }
     }
     public static int contarMayor5semanal(ArrayList<ArrayList<Double>> listas){
+        noEmptyList(listas);
         int totalSemanal=0;
         for (ArrayList<Double> anDoubleList:listas) {
             totalSemanal+=contarmayor5(anDoubleList);
@@ -148,7 +154,6 @@ public class Sensor {
     public static int contarmayor5(ArrayList<Double> list){
         int a = 0;
         for (Double anDouble:list) {
-            System.out.println(anDouble);
             if(anDouble>5){
                 a++;
             }
